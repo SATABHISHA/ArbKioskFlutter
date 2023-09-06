@@ -1,5 +1,7 @@
 import 'package:arb_kiosk_flutter/attendance/user_check_in_out.dart';
+import 'package:arb_kiosk_flutter/home/qr_code_scanner.dart';
 import 'package:arb_kiosk_flutter/widgets/rounded_button.dart';
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
@@ -13,24 +15,30 @@ class UserHome extends StatefulWidget {
 
 class _UserHomeState extends State<UserHome> {
   String _scanBarcode = 'Unknown';
+
   void initState() {
     super.initState();
   }
   Future<void> scanQR() async {
+    WidgetsFlutterBinding.ensureInitialized();
     String barcodeScanRes;
+    List<CameraDescription> _cameras = await availableCameras();
+    final firstCamera = _cameras.first;
+    CameraController controller = CameraController(_cameras[1], ResolutionPreset.max);
     // Platform messages may fail, so we use a try/catch PlatformException.
-    try {
+    /*try {
+
       barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
           '#ff6666', 'Cancel', true, ScanMode.QR);
       print(barcodeScanRes);
     } on PlatformException {
       barcodeScanRes = 'Failed to get platform version.';
-    }
+    }*/
 
     // If the widget was removed from the tree while the asynchronous platform
     // message was in flight, we want to discard the reply rather than calling
     // setState to update our non-existent appearance.
-    if (!mounted) return;
+/*    if (!mounted) return;
 
     setState(() {
       _scanBarcode = barcodeScanRes;
@@ -39,7 +47,40 @@ class _UserHomeState extends State<UserHome> {
         Navigator.pushNamed(context, UserCheckInOut.id);
       }
 
+    });*/
+
+    controller.initialize().then((_) {
+      if (!mounted) {
+        return;
+      }
+      setState(() async {
+        /*try {
+
+          barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+              '#ff6666', 'Cancel', true, ScanMode.QR);
+          print(barcodeScanRes);
+        } on PlatformException {
+          barcodeScanRes = 'Failed to get platform version.';
+        }
+        _scanBarcode = barcodeScanRes;
+        print('ORCode Value: ${_scanBarcode}');
+        if(_scanBarcode.length > 20) {
+          Navigator.pushNamed(context, UserCheckInOut.id);
+        }*/
+      });
+    }).catchError((Object e) {
+      if (e is CameraException) {
+        switch (e.code) {
+          case 'CameraAccessDenied':
+          // Handle access errors here.
+            break;
+          default:
+          // Handle other errors here.
+            break;
+        }
+      }
     });
+    CameraPreview(controller);
   }
   @override
   Widget build(BuildContext context) {
@@ -114,8 +155,9 @@ class _UserHomeState extends State<UserHome> {
 
                 InkWell(
                   onTap: (){
-                    // Navigator.pushNamed(context, UserCheckInOut.id);
+                    // Navigator.pushNamed(context, ScanQRCode.id);
                     scanQR();
+
                   },
                   child: Container(
                     /*width: 70,

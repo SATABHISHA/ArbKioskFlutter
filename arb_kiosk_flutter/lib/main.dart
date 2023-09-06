@@ -1,9 +1,11 @@
+import 'package:arb_kiosk_flutter/home/qr_code_scanner.dart';
 import 'package:arb_kiosk_flutter/home/user_home.dart';
 import 'package:flutter/material.dart';
 
 import 'attendance/user_check_in_out.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
@@ -32,6 +34,7 @@ class MyApp extends StatelessWidget {
       routes: {
         UserHome.id : (context) => UserHome(),
         UserCheckInOut.id : (context) => UserCheckInOut(),
+        ScanQRCode.id : (context) => ScanQRCode(),
       },
     );
   }
