@@ -1,20 +1,28 @@
 import 'package:arb_kiosk_flutter/home/qr_code_scanner.dart';
+import 'package:arb_kiosk_flutter/home/qr_scanner.dart';
 import 'package:arb_kiosk_flutter/home/user_home.dart';
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
 import 'attendance/user_check_in_out.dart';
+import 'home/camera_helper.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const MyApp());
+  final cameras = await getAvailableCameras();
+  final firstCamera = cameras.first;
+  runApp(MyApp(camera: firstCamera,));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final camera;
+
+  const MyApp({super.key, required this.camera});
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
       title: 'WrkPlan Payroll',
       theme: ThemeData(
@@ -35,6 +43,8 @@ class MyApp extends StatelessWidget {
         UserHome.id : (context) => UserHome(),
         UserCheckInOut.id : (context) => UserCheckInOut(),
         ScanQRCode.id : (context) => ScanQRCode(),
+        QRScannerApp.id : (context) => QRScannerApp(camera: camera),
+
       },
     );
   }

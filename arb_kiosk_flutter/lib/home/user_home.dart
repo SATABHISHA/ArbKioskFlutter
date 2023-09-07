@@ -1,20 +1,25 @@
 import 'package:arb_kiosk_flutter/attendance/user_check_in_out.dart';
 import 'package:arb_kiosk_flutter/home/qr_code_scanner.dart';
+import 'package:arb_kiosk_flutter/home/qr_scanner.dart';
 import 'package:arb_kiosk_flutter/widgets/rounded_button.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
+import 'camera_helper.dart';
+
 class UserHome extends StatefulWidget {
   // const UserHome({Key? key}) : super(key: key);
   static String id = 'UserHome';
+
   @override
   State<UserHome> createState() => _UserHomeState();
 }
 
 class _UserHomeState extends State<UserHome> {
   String _scanBarcode = 'Unknown';
+  late CameraController controller;
 
   void initState() {
     super.initState();
@@ -24,16 +29,16 @@ class _UserHomeState extends State<UserHome> {
     String barcodeScanRes;
     List<CameraDescription> _cameras = await availableCameras();
     final firstCamera = _cameras.first;
-    CameraController controller = CameraController(_cameras[1], ResolutionPreset.max);
+     controller = CameraController(_cameras.last, ResolutionPreset.max, imageFormatGroup: ImageFormatGroup.jpeg);
     // Platform messages may fail, so we use a try/catch PlatformException.
-    /*try {
+    try {
 
       barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
           '#ff6666', 'Cancel', true, ScanMode.QR);
       print(barcodeScanRes);
     } on PlatformException {
       barcodeScanRes = 'Failed to get platform version.';
-    }*/
+    }
 
     // If the widget was removed from the tree while the asynchronous platform
     // message was in flight, we want to discard the reply rather than calling
@@ -82,8 +87,17 @@ class _UserHomeState extends State<UserHome> {
     });
     CameraPreview(controller);
   }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    controller.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
+
+
     return WillPopScope(
       onWillPop: () async {
         return false;
@@ -154,9 +168,16 @@ class _UserHomeState extends State<UserHome> {
                 SizedBox(height: 15,),
 
                 InkWell(
-                  onTap: (){
+                  onTap: ()  {
                     // Navigator.pushNamed(context, ScanQRCode.id);
-                    scanQR();
+                    // scanQR();
+
+                    Navigator.pushNamed(context, QRScannerApp.id);
+                    /*setState(() async {
+                      final cameras = await getAvailableCameras();
+                      final firstCamera = cameras.first;
+                      Navigator.pushNamed(context, QRScannerApp.id);
+                    });*/
 
                   },
                   child: Container(
