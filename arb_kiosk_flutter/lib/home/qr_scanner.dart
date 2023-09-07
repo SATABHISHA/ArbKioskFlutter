@@ -33,20 +33,18 @@ class _QRScannerAppState extends State<QRScannerApp> {
         children: <Widget>[
           Expanded(
             flex: 4,
-            child: Stack(
-              children: [QRView(
-                key: qrKey,
-                // cameraDirection: CameraLensDirection.front, // Use the front camera by default
-                cameraFacing: CameraFacing.front,
-                onQRViewCreated: _onQRViewCreated,
-                overlay: QrScannerOverlayShape(
-                    borderColor: Colors.red,
-                    borderRadius: 10,
-                    borderLength: 30,
-                    borderWidth: 10,
-                    cutOutSize: scanArea,),
+            child: QRView(
+              key: qrKey,
+              // cameraDirection: CameraLensDirection.front, // Use the front camera by default
+              cameraFacing: CameraFacing.front,
+              onQRViewCreated: _onQRViewCreated,
+              overlay: QrScannerOverlayShape(
+                  borderColor: Colors.red,
+                  borderRadius: 10,
+                  borderLength: 30,
+                  borderWidth: 10,
+                  cutOutSize: scanArea,),
 
-              ),_buildScannerLine(),],
             ),
           ),
 
