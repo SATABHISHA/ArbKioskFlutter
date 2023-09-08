@@ -1,5 +1,4 @@
 import 'package:arb_kiosk_flutter/attendance/user_check_in_out.dart';
-import 'package:arb_kiosk_flutter/home/qr_code_scanner.dart';
 import 'package:arb_kiosk_flutter/home/qr_scanner.dart';
 import 'package:arb_kiosk_flutter/widgets/rounded_button.dart';
 import 'package:camera/camera.dart';

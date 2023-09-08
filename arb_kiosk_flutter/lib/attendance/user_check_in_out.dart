@@ -1,5 +1,6 @@
 
 
+import 'package:arb_kiosk_flutter/home/qr_scanner.dart';
 import 'package:flutter/material.dart';
 
 class UserCheckInOut extends StatefulWidget {
@@ -10,6 +11,15 @@ class UserCheckInOut extends StatefulWidget {
 }
 
 class _UserCheckInOutState extends State<UserCheckInOut> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print('Scanned Data=> ${QRScannerApp.ScannedQRCodeData}');
+    print("Scanned Data=> ${QRScannerApp.ScannedQRCodeData['EmployeeCode']}");
+
+  }
   @override
   Widget build(BuildContext context) {
     return WillPopScope(

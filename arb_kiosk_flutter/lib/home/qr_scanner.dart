@@ -1,11 +1,16 @@
 
 
+import 'dart:convert';
+// import 'dart:js_util';
+
+import 'package:arb_kiosk_flutter/attendance/user_check_in_out.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class QRScannerApp extends StatefulWidget {
   final CameraDescription camera;
+  static var ScannedQRCodeData;
 
   QRScannerApp({required this.camera});
   static String id = 'QRScanner';
@@ -91,6 +96,9 @@ class _QRScannerAppState extends State<QRScannerApp> {
     controller.scannedDataStream.listen((scanData) {
       // Handle scanned QR code data here
       print('Scanned QR Code: ${scanData.code}');
+      QRScannerApp.ScannedQRCodeData = json.decode(scanData.code as String);
+      // QRScannerApp.ScannedQRCodeData = scanData.code;
+      Navigator.pushNamed(context, UserCheckInOut.id);
     });
   }
 

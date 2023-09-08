@@ -1,4 +1,3 @@
-import 'package:arb_kiosk_flutter/home/qr_code_scanner.dart';
 import 'package:arb_kiosk_flutter/home/qr_scanner.dart';
 import 'package:arb_kiosk_flutter/home/user_home.dart';
 import 'package:camera/camera.dart';
@@ -42,7 +41,6 @@ class MyApp extends StatelessWidget {
       routes: {
         UserHome.id : (context) => UserHome(),
         UserCheckInOut.id : (context) => UserCheckInOut(),
-        ScanQRCode.id : (context) => ScanQRCode(),
         QRScannerApp.id : (context) => QRScannerApp(camera: camera),
 
       },
