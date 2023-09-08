@@ -32,7 +32,7 @@ class _QRScannerAppState extends State<QRScannerApp> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('QR Code Scanner'),
+        // title: Text('QR Code Scanner'),
       ),
       body: Column(
         children: <Widget>[

@@ -28,13 +28,17 @@ class _UserHomeState extends State<UserHome> {
     String barcodeScanRes;
     List<CameraDescription> _cameras = await availableCameras();
     final firstCamera = _cameras.first;
-     controller = CameraController(_cameras.last, ResolutionPreset.max, imageFormatGroup: ImageFormatGroup.jpeg);
+    final cameraController = CameraController(_cameras[0], ResolutionPreset.high);
+
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
 
+
+      await controller.initialize();
       barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
           '#ff6666', 'Cancel', true, ScanMode.QR);
       print(barcodeScanRes);
+      cameraController.dispose();
     } on PlatformException {
       barcodeScanRes = 'Failed to get platform version.';
     }
@@ -42,7 +46,7 @@ class _UserHomeState extends State<UserHome> {
     // If the widget was removed from the tree while the asynchronous platform
     // message was in flight, we want to discard the reply rather than calling
     // setState to update our non-existent appearance.
-/*    if (!mounted) return;
+    if (!mounted) return;
 
     setState(() {
       _scanBarcode = barcodeScanRes;
@@ -51,14 +55,14 @@ class _UserHomeState extends State<UserHome> {
         Navigator.pushNamed(context, UserCheckInOut.id);
       }
 
-    });*/
+    });
 
-    controller.initialize().then((_) {
+   /* controller.initialize().then((_) {
       if (!mounted) {
         return;
       }
       setState(() async {
-        /*try {
+        *//*try {
 
           barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
               '#ff6666', 'Cancel', true, ScanMode.QR);
@@ -70,7 +74,7 @@ class _UserHomeState extends State<UserHome> {
         print('ORCode Value: ${_scanBarcode}');
         if(_scanBarcode.length > 20) {
           Navigator.pushNamed(context, UserCheckInOut.id);
-        }*/
+        }*//*
       });
     }).catchError((Object e) {
       if (e is CameraException) {
@@ -83,8 +87,8 @@ class _UserHomeState extends State<UserHome> {
             break;
         }
       }
-    });
-    CameraPreview(controller);
+    });*/
+
   }
 
   @override

@@ -16,8 +16,8 @@ class _UserCheckInOutState extends State<UserCheckInOut> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    print('Scanned Data=> ${QRScannerApp.ScannedQRCodeData}');
-    print("Scanned Data=> ${QRScannerApp.ScannedQRCodeData['EmployeeCode']}");
+    // print('Scanned Data=> ${QRScannerApp.ScannedQRCodeData}');
+    // print("Scanned Data=> ${QRScannerApp.ScannedQRCodeData['EmployeeCode']}");
 
   }
   @override
