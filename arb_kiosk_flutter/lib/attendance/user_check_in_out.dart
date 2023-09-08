@@ -2,6 +2,7 @@
 
 import 'package:arb_kiosk_flutter/home/qr_scanner.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class UserCheckInOut extends StatefulWidget {
   // const UserCheckInOut({Key? key}) : super(key: key);
@@ -16,12 +17,17 @@ class _UserCheckInOutState extends State<UserCheckInOut> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    // print('Scanned Data=> ${QRScannerApp.ScannedQRCodeData}');
-    // print("Scanned Data=> ${QRScannerApp.ScannedQRCodeData['EmployeeCode']}");
+    print('Scanned Data=> ${QRScannerApp.ScannedQRCodeData}');
+    print("Scanned Data=> ${QRScannerApp.ScannedQRCodeData['EmployeeCode']}");
 
   }
   @override
   Widget build(BuildContext context) {
+
+    final UserLogInOutInputDate = DateTime.parse(QRScannerApp.ScannedQRCodeData['DateTime']);
+    final UserLogInOutFormattedDate = DateFormat("dd-MMM-yyyy").format(UserLogInOutInputDate);
+    final UserLogInOutInputTime = DateTime.parse(QRScannerApp.ScannedQRCodeData['DateTime']);
+    final UserLogInOutFormattedTime = DateFormat("hh:mm a").format(UserLogInOutInputTime);
     return WillPopScope(
       onWillPop: () async {
         return false;
@@ -102,7 +108,7 @@ class _UserCheckInOutState extends State<UserCheckInOut> {
                           child: Center(child: Image.asset('images/usericon.png', width: 30, height: 36, fit: BoxFit.fill,)),
                         ),
                         SizedBox(height: 15,),
-                        Text('Alex', style: TextStyle(fontSize: 21, color: Color.fromRGBO(
+                        Text(QRScannerApp.ScannedQRCodeData['EmployeeCode'], style: TextStyle(fontSize: 21, color: Color.fromRGBO(
                             87, 87, 87, 1.0)),),
                       ],
                     ),
@@ -120,10 +126,10 @@ class _UserCheckInOutState extends State<UserCheckInOut> {
                         Text('You are Checked In', style: TextStyle(fontSize: 29, color: Color.fromRGBO(
                             87, 87, 87, 1.0), fontWeight: FontWeight.w600),),
                         SizedBox(height: 5,),
-                        Text('06-Sep-2023', style: TextStyle(fontSize: 21, color: Color.fromRGBO(
+                        Text(UserLogInOutFormattedDate, style: TextStyle(fontSize: 21, color: Color.fromRGBO(
                             87, 87, 87, 1.0)),),
                         SizedBox(height: 5,),
-                        Text('10:00 AM', style: TextStyle(fontSize: 21, color: Color.fromRGBO(
+                        Text(UserLogInOutFormattedTime, style: TextStyle(fontSize: 21, color: Color.fromRGBO(
                             87, 87, 87, 1.0)),),
                       ],
                     ),
