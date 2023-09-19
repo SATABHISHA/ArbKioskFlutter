@@ -1,3 +1,6 @@
+
+
+import 'package:arb_kiosk_flutter/home/qr_generate.dart';
 import 'package:arb_kiosk_flutter/home/qr_scanner.dart';
 import 'package:arb_kiosk_flutter/home/user_home.dart';
 import 'package:camera/camera.dart';
@@ -5,6 +8,7 @@ import 'package:flutter/material.dart';
 
 import 'attendance/user_check_in_out.dart';
 import 'home/camera_helper.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,6 +26,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    _requestLocationPermission();
     return MaterialApp(
       title: 'WrkPlan Payroll',
       theme: ThemeData(
@@ -42,9 +47,18 @@ class MyApp extends StatelessWidget {
         UserHome.id : (context) => UserHome(),
         UserCheckInOut.id : (context) => UserCheckInOut(),
         QRScannerApp.id : (context) => QRScannerApp(camera: camera),
+        QRCodeGenerater.id : (context) => QRCodeGenerater(),
 
       },
     );
+  }
+}
+Future<void> _requestLocationPermission() async {
+  PermissionStatus status = await Permission.location.request();
+  if(status == PermissionStatus.granted){
+
+  }else{
+
   }
 }
 

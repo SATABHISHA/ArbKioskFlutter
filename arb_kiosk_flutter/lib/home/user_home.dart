@@ -1,4 +1,5 @@
 import 'package:arb_kiosk_flutter/attendance/user_check_in_out.dart';
+import 'package:arb_kiosk_flutter/home/qr_generate.dart';
 import 'package:arb_kiosk_flutter/home/qr_scanner.dart';
 import 'package:arb_kiosk_flutter/widgets/rounded_button.dart';
 import 'package:camera/camera.dart';
@@ -175,7 +176,8 @@ class _UserHomeState extends State<UserHome> {
                     // Navigator.pushNamed(context, ScanQRCode.id);
                     // scanQR();
 
-                    Navigator.pushNamed(context, QRScannerApp.id);
+                    // Navigator.pushNamed(context, QRScannerApp.id); //---commented on 19th Sept 2023, as per discussion
+                    Navigator.pushNamed(context, QRCodeGenerater.id);
                     /*setState(() async {
                       final cameras = await getAvailableCameras();
                       final firstCamera = cameras.first;
