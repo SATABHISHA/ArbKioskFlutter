@@ -12,15 +12,17 @@ import 'package:permission_handler/permission_handler.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final cameras = await getAvailableCameras();
-  final firstCamera = cameras.first;
-  runApp(MyApp(camera: firstCamera,));
+  /*final cameras = await getAvailableCameras();
+  final firstCamera = cameras.first;*/
+  // runApp(MyApp(camera: firstCamera,));
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  final camera;
+  // final camera;
 
-  const MyApp({super.key, required this.camera});
+  // const MyApp({super.key, required this.camera});
+  const MyApp({super.key});
 
   // This widget is the root of your application.
   @override
@@ -46,7 +48,8 @@ class MyApp extends StatelessWidget {
       routes: {
         UserHome.id : (context) => UserHome(),
         UserCheckInOut.id : (context) => UserCheckInOut(),
-        QRScannerApp.id : (context) => QRScannerApp(camera: camera),
+        // QRScannerApp.id : (context) => QRScannerApp(camera: camera),
+        QRScannerApp.id : (context) => QRScannerApp(),
         QRCodeGenerater.id : (context) => QRCodeGenerater(),
 
       },

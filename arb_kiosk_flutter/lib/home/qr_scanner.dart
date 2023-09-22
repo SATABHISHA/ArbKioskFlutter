@@ -9,10 +9,10 @@ import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class QRScannerApp extends StatefulWidget {
-  final CameraDescription camera;
+  // final CameraDescription camera;
   static var ScannedQRCodeData;
 
-  QRScannerApp({required this.camera});
+  // QRScannerApp({required this.camera});
   static String id = 'QRScanner';
   @override
   _QRScannerAppState createState() => _QRScannerAppState();
